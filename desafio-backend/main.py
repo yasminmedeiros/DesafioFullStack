@@ -22,7 +22,7 @@ def listarEstabelecimentosPorMunicipio(municipioIdSus: int , db: Session = Depen
 @app.get("/estabelecimentosPorId/{estabelecimentoId}", response_model=EstabelecimentosResponse)
 def obterEstabelecimentoPorId(estabelecimentoId: str = Query(min_length=7), db: Session = Depends(get_db)):
     estabelecimento = EstabelecimentosRepository.obterEstabelecimentoPorId(db, estabelecimentoId)
-
+    
     # Exceção lançada se o estabelecimento não existir, já que se este não existir estabelecimento se torna uma variável vazia.
     if not estabelecimento:
         raise HTTPException(status_code=404, detail="O estabelecimento não existe no banco de dados")

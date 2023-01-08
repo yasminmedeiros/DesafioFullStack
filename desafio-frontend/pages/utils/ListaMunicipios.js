@@ -1,4 +1,4 @@
-[
+const data = [
     {
         "nome" : "Maraã",
         "uf" : "AM"
@@ -22280,3 +22280,6 @@
         "uf" : "RS"
     }
 ]
+
+
+export {data}
