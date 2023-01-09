@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@40;500&display=swap");
+
+.headerFooter{
+    background-color: #00BCD4;
+    height: 10rem;
+    min-width:100%;
+    padding: 3rem;
+    justify-content:space-between;
+    display: flex;
+}
+.containerLogo{
+    min-height: 100%;
+    width: 5rem;
+    margin-left: 4rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.buttonLogo{
+    background-color: #00BCD4;
+    width: auto;
+    border: 0px;
+}
+.containerId{
+    min-height: 100%;
+    width: 4rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.pId{
+    font-family:   "Inter" ;
+    font-style:  normal;
+    line-height:  15px;
+    color:  #141919;
+}
+.containerInfoTab{
+    width: 100%;
+    height: auto;
+    background: #ffffff;
+}
+.containerModal{
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(31,31,31,0.75);
+}
+.containerFilterCity{
+    margin-left: auto;
+    background-color: #FFFFFF;
+    border: 1px solid #888;
+    width: 40%; 
+    height: 100%; 
+}
+.buttonCloseModal{
+    display: flex; 
+    margin-left: auto; 
+    margin-top: 1rem;
+    margin-right: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px; 
+    width: 40px; 
+    height: 40px; 
+    background:#1F1F1F; 
+    border-radius: 100px; 
+    flex: none; 
+    order: 0;
+    flex-grow: 0; 
+}
+.divFilterCity{
+    margin-top: 10rem;
+    margin-left: 5rem;
+}
+.pFilterCity{
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.35rem;
+    line-height: 150%; 
+    letter-spacing: -0.01em; 
+    color: #1F1F1F;
+}
+.inputCity{
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400; 
+    font-size: 2rem; 
+    line-height: 130%;
+    letter-spacing: -0.02em;
+    color: #1F1F1F; 
+    margin-top: 0.5rem; 
+    border: 0px; 
+    padding-top:0.5rem;
+    padding-bottom:0.5rem;  
+    width:80%;
+    margin-left: 0%;
+    border-style: none;
+    border-bottom: none;
+}
+.inputCity::placeholder{
+    color: rgba(230, 236, 240, 1);
+}
+.inputCity:focus{
+    outline:none!important;
+}
+.buttonSelectCity{
+    border-radius:1.75rem;
+    padding-top:0.1rem; 
+    padding-bottom:0.1rem; 
+    padding-left:0.75rem; 
+    padding-right:0.75rem; 
+    background-color:  #ffffff; 
+    border-color: rgba(240, 244, 246, 1);  
+    display:block; 
+    border-style: solid;
+    margin-bottom:0.5rem; 
+    margin-top:0.5rem;
+}
+.buttonSelectCity:hover{
+    background-color:rgba(240, 244, 246, 1);
+}
+.pCity{
+    font-family: "Inter"; 
+    font-style: normal; 
+    font-weight: 400; 
+    font-size: 1rem; 
+    line-height: 150%; 
+    letter-spacing: -0.02em; 
+    color: #797979;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
