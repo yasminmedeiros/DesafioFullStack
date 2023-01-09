@@ -1,23 +1,26 @@
 import Head from "next/head";
 import { useState, useCallback } from "react";
 import { InfoTab } from "./components/InfoTab/index";
-import { data } from "./utils/ListaMunicipios";
+import { data } from "./utils/ListaMunicipios"; // Importando a lista de opções existentes.
 
+// Página inicial
 export default function Home() {
-  const [showModal, setShowModal] = useState("none");
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
-  const onChange = useCallback((event) => {
+  const [showModal, setShowModal] = useState("none"); // Variável que armazena o estado do modal, quando ativo o css irá ser display:block, quando inativo display:none.
+  const [query, setQuery] = useState(""); // Query que irá ser filtrada as opções e irá armazenar a cidade escolhida.
+  const [options, setOptions] = useState([]); // Opções do filtro conforme a query, armazenando as cidades que possuam a query em seu nome.
+
+  // Função que irá atualizar o valor da query e realiza o filtro que retorna as opções para a variável options.
+  const onChangeQuery = useCallback((event) => {
     const queryValue = event.target.value;
-    setQuery(queryValue);
-    setResults(data.filter((value)=> {
-      return (value["nome"].toUpperCase().includes(queryValue.toUpperCase()));
+    setQuery(queryValue); // Armazenando a query digitada até o momento.
+    setOptions(data.filter((value)=> {return ((value["nome"] + ", " + value["uf"]).toUpperCase().includes(queryValue.toUpperCase())); // Realização do filtro e armazenando os resultados.
     }));
-  }, [query,results]);
+  }, [query,options]);
   
+  // Função utilizada caso o usuário escolha uma das opções listadas, que no caso zeraria as opções, já que uma já foi selecionada.
   const setQuerySpecific = (queryValue) => {
     setQuery(queryValue);
-    setResults([]);
+    setOptions([]);
   }
   return (
     <>
@@ -42,59 +45,57 @@ export default function Home() {
           <p className="pId">HOME</p>
         </div>
       </header>
-      <section>
-        <section className="containerInfoTab">
-          <InfoTab
-            contentList={[
-              {
-                buttonLink: "/",
-                buttonTitle: "SOBRE SAÚDE MENTAL",
-                leftTitle: "Saúde Mental",
-                rightContent: "Uma plataforma gratuita, que utiliza bases de dados públicas para auxiliar na gestão dos serviços de saúde mental do município. Conheça mais sobre o trabalho realizado pela Impulso em parceria com o Instituto Cactus e o município de Aracaju (SE).",
-                rightTitle: "O que é a plataforma de indicadores de Saúde Mental?"
-              },
-              {
-                buttonLink: "/",
-                buttonTitle: "entenda",
-                leftTitle: "Glossário",
-                rightContent: "Acesse um siglário e a ficha técnica de nossos indicadores para compreender como eles são calculados, quais são as bases de dados que os alimentam, com qual periodicidade eles são atualizados e muito mais",
-                rightTitle: "Entenda como interpretar os indicadores"
-              }
-            ]}
-          />
-        </section>
-        <section style={{display:showModal}} className="containerModal">   
-          <div className="containerFilterCity">
-              <button onClick={() =>  setShowModal("none")} className="buttonCloseModal">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10.9493 1.04972L1.0498 10.9492" stroke="white" strokeWidth="2"/>
-                  <path d="M10.9493 10.9503L1.0498 1.05078" stroke="white" strokeWidth="2"/>
-                </svg>
-              </button>
-              <div className="divFilterCity">
-                <p className="pFilterCity">
-                  Escolha um município
-                </p>
-                <input type="text" onChange={onChange} value={query} className="inputCity" placeholder="Porto Alegre, RS"/>
-                <div style={{marginTop:"1rem"}}>
-                  {results.slice(0,12).map((value, index)=> {
-                    if(query !== "")
-                      return(
-                        <>
-                          <button 
-                            onClick={() => {setQuerySpecific(value["nome"] + ", " + value["uf"])}} className="buttonSelectCity">
-                              <p className="pCity">
-                                {value["nome"] + ", " + value["uf"]}
-                              </p>
-                          </button>
-                        </>
-                      );
-                  })}
-                </div>
-              </div>
-          </div>
-        </section> 
+      <section className="containerInfoTab">
+        <InfoTab
+          contentList={[
+            {
+              buttonLink: "/",
+              buttonTitle: "SOBRE SAÚDE MENTAL",
+              leftTitle: "Saúde Mental",
+              rightContent: "Uma plataforma gratuita, que utiliza bases de dados públicas para auxiliar na gestão dos serviços de saúde mental do município. Conheça mais sobre o trabalho realizado pela Impulso em parceria com o Instituto Cactus e o município de Aracaju (SE).",
+              rightTitle: "O que é a plataforma de indicadores de Saúde Mental?"
+            },
+            {
+              buttonLink: "/",
+              buttonTitle: "entenda",
+              leftTitle: "Glossário",
+              rightContent: "Acesse um siglário e a ficha técnica de nossos indicadores para compreender como eles são calculados, quais são as bases de dados que os alimentam, com qual periodicidade eles são atualizados e muito mais",
+              rightTitle: "Entenda como interpretar os indicadores"
+            }
+          ]}
+        />
       </section>
+      <section style={{display:showModal}} className="containerModal">   
+        <div className="containerFilterCity">
+            <button onClick={() =>  setShowModal("none")} className="buttonCloseModal">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.9493 1.04972L1.0498 10.9492" stroke="white" strokeWidth="2"/>
+                <path d="M10.9493 10.9503L1.0498 1.05078" stroke="white" strokeWidth="2"/>
+              </svg>
+            </button>
+            <div className="divFilterCity">
+              <p className="pFilterCity">
+                Escolha um município
+              </p>
+              <input type="text" onChange={onChangeQuery} value={query} className="inputCity" placeholder="Porto Alegre, RS"/>
+              <div style={{marginTop:"1rem"}}>
+                {options.slice(0,12).map((value) => {
+                  if(query !== "")
+                    return(
+                      <>
+                        <button 
+                          onClick={() => {setQuerySpecific(value["nome"] + ", " + value["uf"])}} className="buttonSelectCity">
+                            <p className="pCity">
+                              {value["nome"] + ", " + value["uf"]}
+                            </p>
+                        </button>
+                      </>
+                    );
+                })}
+              </div>
+            </div>
+        </div>
+      </section> 
       <footer className="headerFooter">
         <div className="containerLogo">
             <a onClick={() =>  setShowModal("block")} className="buttonLogo">
